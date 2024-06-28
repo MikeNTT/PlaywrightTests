@@ -46,8 +46,16 @@ test('drop down the department dropdown and select electronics and search for ip
     expect(cartContent).toContain('(Reacondicionado)');
 });
 
+test('Agregar a opcion de regalo 1 producto checkbox test', async ({ page }) => {
 
-
-
+    const amazonPOM = new amazonPage(page);
+    await amazonPOM.waitUntilAmazonPageIsVisible();
+    await amazonPOM.selectOptionOnHamburguerMenu('Los más vendidos');
+    await amazonPOM.clickHeadsetProduct();
+    await amazonPOM.checkRegaloCheckbox();
+    await amazonPOM.addProdutToCart();
+    await amazonPOM.clickProcederPago();
+    await expect(page.locator(amazonPOM.iniciarSessionPage)).toBeVisible();
+})
 
 });
