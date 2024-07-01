@@ -20,6 +20,11 @@ export class amazonPage{
     readonly noGracias: Locator
     readonly listOfProducts : Locator
     readonly amazonPageContent : string
+    readonly hamburguerMenu : Locator
+    readonly headsetProduct : Locator
+    readonly agregarRegalo : Locator
+    readonly procederAlPago : Locator
+    readonly iniciarSessionPage : string
 
 
     constructor(page: Page){
@@ -39,6 +44,11 @@ export class amazonPage{
         this.noGracias = page.locator('input[aria-labelledby="attachSiNoCoverage-announce"]')
         this.listOfProducts = page.locator('[data-cy="title-recipe"] >h2 >a>span')
         this.amazonPageContent = '[id=pageContent]'
+        this.hamburguerMenu = page.locator('[id=nav-hamburger-menu]')
+        this.headsetProduct = page.locator('a').filter({ hasText: 'Razer Kraken V3 X Auriculares' })
+        this.agregarRegalo = page.getByLabel('Agregar opciones de regalo')
+        this.procederAlPago = page.getByLabel('Proceder al pago (1 artículo')
+        this.iniciarSessionPage = '[class*="a-box-inner a-padding"]'
     }
 
 
@@ -56,6 +66,9 @@ export class amazonPage{
     async selectOndropdownDescription(){await this.searchDropdownDescription.selectOption('Electrónicos');}
     async clickOnbutton512gb(){await this.button512gb.click();}
     async waitUntilAmazonPageIsVisible(){await this.page.waitForSelector(this.amazonPageContent);}
+    async clickHeadsetProduct() { await this.headsetProduct.click();}
+    async checkRegaloCheckbox() { await this.agregarRegalo.check();}
+    async clickProcederPago() { await this.procederAlPago.click();}
    
     async searchProduct(product : string){
         await this.searchInput.fill(product);
@@ -79,6 +92,10 @@ export class amazonPage{
         }
     }
 
+    async selectOptionOnHamburguerMenu(option: string) {
+        await this.hamburguerMenu.click();
+        await this.page.click(`//div[@id='hmenu-content']//ul//li//*[text()='${option}']`);
+    }
 
 
 }
