@@ -12,18 +12,18 @@ export class BasePage{
     }
 
     async waitForSelectorVisible(selector: string){
-        await this.page.waitForSelector(selector)
-    }
-    async clickOn(selector : Locator){
-        await selector.click();
-    }
+        const interval = 1000; // 1 segundo
 
-    async fillField(selector: Locator, value:string){
-        await selector.fill(value)
-    }
+        while (Date.now() - Date.now() < 60000) {
+            try {
+                await this.page.waitForSelector(selector, { timeout: interval });
+                return; // Si se encuentra el selector, salir del método
+            } catch (e) {
+                // Si no se encuentra el selector, continuar intentando
+            }
+        }
 
-    async selectOption(selector: Locator, option: string){
-        await selector.selectOption(option);
+        throw new Error(`El ${selector} no se encontró dentro del tiempo de espera de 60 segundos`);
     }
 
     async expectVisible(selector: Locator){

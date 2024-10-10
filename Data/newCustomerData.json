@@ -1,0 +1,5 @@
+[
+    { "subTradeChannel": "Airline", "expectedRate": "2.5%" },
+    { "subTradeChannel": "QSR-Sandwich", "expectedRate": "34.3%" },
+    { "subTradeChannel": "Snack Bar", "expectedRate": "35.6%" }
+]
